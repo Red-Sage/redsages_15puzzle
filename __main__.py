@@ -10,7 +10,7 @@ init()
 
 
 def main():
-    puzzle = PuzzleBoard.get_completed_board()
+    puzzle = PuzzleBoard.get_random_board()
     run = True
     while run:
         print_board(puzzle.board)
