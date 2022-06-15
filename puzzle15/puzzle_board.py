@@ -1,3 +1,5 @@
+# Copyright 2022 Casey Ladtkow
+
 import numpy as np
 import random
 

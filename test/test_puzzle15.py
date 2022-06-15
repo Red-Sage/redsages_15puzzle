@@ -1,3 +1,5 @@
+# Copyright 2022 Casey Ladtkow
+
 import pytest
 from puzzle15 import PuzzleBoard
 import numpy as np

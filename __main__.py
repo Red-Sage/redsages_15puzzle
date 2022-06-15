@@ -1,3 +1,5 @@
+# Copyright 2022 Casey Ladtkow
+
 from puzzle15 import PuzzleBoard
 from colorama import init, Fore, Back, Style
 import os
@@ -6,17 +8,20 @@ import time
 
 init()
 
-def main():
-    puzzle = PuzzleBoard.get_random_board()
 
-    while True:
-        os.system('cls')
+def main():
+    puzzle = PuzzleBoard.get_completed_board()
+    run = True
+    while run:
         print_board(puzzle.board)
-        text = input("Move the blank to any adjacent number by entering it here (q to quit):")
+        print(Fore.WHITE + "Move the blank to any adjacent number by entering"
+              "it here (q to quit):", end='')
+        text = input()
         try:
             move = int(text)
-        except:
+        except ValueError as e:
             if text in ['q', 'quit']:
+                print(Style.RESET_ALL, end='')
                 os.system('cls')
                 break
             print(Fore.RED + f'{text} is not a valid move.')
@@ -26,16 +31,29 @@ def main():
         try:
             puzzle.move(move)
             if puzzle.is_complete:
+                print_board(puzzle.board)
                 print(Fore.GREEN + 'You Win!')
-                time.sleep(5)
+
+                while True:
+                    print(Fore.WHITE + "Play Again Y/N:", end='')
+                    response = input()
+                    if response.lower() == 'y':
+                        puzzle = PuzzleBoard.get_random_board()
+                        break
+                    elif response.lower() == 'n':
+                        run = False
+                        break
         except ValueError as e:
             print(Fore.RED + str(e))
             time.sleep(1.5)
-            
+
     return 0
 
+
 def print_board(board):
-    row_format = (Back.BLACK + "|" + Back.WHITE + "{:>3}" + Back.BLACK + "|") * board.shape[1]
+
+    print(Back.BLACK)
+    os.system('cls')
     for row in board:
         for col in row:
             if col == board.size:
@@ -53,9 +71,6 @@ def print_board(board):
         print(Back.BLACK)        
         print('\r'*2)
 
-        #row_text = Back.WHITE + row_format.format(*row)
-        #print(row_text)
-        #print(Back.BLACK + '-'*len(row_text))
 
 if __name__ == '__main__':
     # TODO: Add a fancy QT Quick GUI
