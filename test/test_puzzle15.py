@@ -32,6 +32,34 @@ def completed_array():
     return array
 
 
+@pytest.fixture
+def test_array_2():
+    # Returns an array with the 1 tile one move from being complete
+
+    array = np.array([
+                      [16, 1, 3, 4],
+                      [5, 6, 7, 8],
+                      [9, 10, 2, 12],
+                      [13, 14, 11, 15]
+                     ])
+
+    return array
+
+
+@pytest.fixture
+def test_array_3():
+    # Returns a test array with a score of zero and the blank in the middle
+
+    array = np.array([
+                      [2, 1, 3, 4],
+                      [5, 6, 7, 8],
+                      [9, 10, 16, 12],
+                      [13, 14, 11, 15]
+                     ])
+
+    return array
+
+
 def swap_array_tiles(array, tile1, tile2):
     # This helper function swaps tiles (a.k.a. number in an array)
 
@@ -146,3 +174,34 @@ def test_valid_moves_corner(completed_array):
     puzzle = PuzzleBoard(completed_array)
 
     assert all(val in valid_moves for val in puzzle.valid_moves)
+
+
+def test_score_1_tile(test_array_2):
+    # Test that the score goes to 9 when the 1 tile is moved into place
+
+    puzzle = PuzzleBoard(test_array_2)
+
+    puzzle.move_direction(1)
+
+    assert puzzle.score == 9
+
+
+def test_score_1_move(test_array_3):
+    # Test that one move costs 1 point
+
+    puzzle = PuzzleBoard(test_array_3)
+
+    puzzle.move_direction(0)
+    puzzle.move_direction(1)
+    puzzle.move_direction(2)
+    puzzle.move_direction(3)
+
+    assert puzzle.score == -4
+
+
+def test_complete_board_score(completed_array):
+    # Test that the score is correct when the board is complete
+
+    puzzle = PuzzleBoard(completed_array)
+
+    assert puzzle.score == 160

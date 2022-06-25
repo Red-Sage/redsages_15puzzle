@@ -80,10 +80,34 @@ class PuzzleBoard:
         # your friends with imposible to solve puzzels.
 
         self._board = board
+        self._move_score = 0
 
     @property
     def board(self):
         return self._board
+
+    @property
+    def score(self):
+        # Calculate the score of the current board
+
+        tile_score = 0
+        permutation = self.board.flatten()
+
+        for pos, item in enumerate(permutation):
+            if item == pos + 1:
+                tile_score += 10
+            else:
+                break
+
+        return tile_score + self._move_score
+
+    def _execute_move(self, blank_loc, tile_loc):
+        # Helper function to move tiles and increment score
+
+        (self._board[blank_loc], self.board[tile_loc]
+         ) = self._board[tile_loc], self._board[blank_loc]
+
+        self._move_score -= 1
 
     def move(self, tile):
         # Moves the tile on the board
@@ -105,8 +129,7 @@ class PuzzleBoard:
            + np.abs(blank_loc[1]-tile_loc[1])
            == 1
            ):
-            (self._board[blank_loc], self.board[tile_loc]
-             ) = self._board[tile_loc], self._board[blank_loc]
+            self._execute_move(blank_loc, tile_loc)
         else:
             raise ValueError(f'Tile {tile} not adjacent to the blank tile')
 
@@ -126,8 +149,7 @@ class PuzzleBoard:
             elif dir == 3:
                 tile_loc = (blank_loc[0], blank_loc[1] - 1)
 
-            (self._board[blank_loc], self.board[tile_loc]
-             ) = self._board[tile_loc], self._board[blank_loc]
+            self._execute_move(blank_loc, tile_loc)
 
     @property
     def valid_move_directions(self):

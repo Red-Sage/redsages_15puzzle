@@ -14,6 +14,7 @@ def main():
     run = True
     while run:
         print_board(puzzle.board)
+        print(Fore.WHITE + f"Score: {puzzle.score}")
         print(Fore.WHITE + "Move the blank to any adjacent number by entering"
               "it here (q to quit):", end='')
         text = input()
@@ -32,7 +33,7 @@ def main():
             puzzle.move(move)
             if puzzle.is_complete:
                 print_board(puzzle.board)
-                print(Fore.GREEN + 'You Win!')
+                print(Fore.GREEN + f'You Win! Score: {puzzle.score}')
 
                 while True:
                     print(Fore.WHITE + "Play Again Y/N:", end='')
