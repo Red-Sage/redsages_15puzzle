@@ -1,5 +1,6 @@
 # Copyright 2022 Casey Ladtkow
 
+from ast import Pass
 import numpy as np
 import random
 
@@ -108,6 +109,39 @@ class PuzzleBoard:
              ) = self._board[tile_loc], self._board[blank_loc]
         else:
             raise ValueError(f'Tile {tile} not adjacent to the blank tile')
+
+    def move_direction(self, dir):
+        # move by direction where 0, 1, 2, 3 represent up, right, left, down
+
+        blank_loc = self.get_tile_loc(self.board.size)
+
+        if dir in self.valid_move_directions:
+
+            if dir == 0:
+                tile_loc = (blank_loc[0] - 1, blank_loc[1])
+            elif dir == 1:
+                tile_loc = (blank_loc[0], blank_loc[1] + 1)
+            elif dir == 2:
+                tile_loc = (blank_loc[0] + 1, blank_loc[1])
+            elif dir == 3:
+                tile_loc = (blank_loc[0], blank_loc[1] - 1)
+
+            (self._board[blank_loc], self.board[tile_loc]
+             ) = self._board[tile_loc], self._board[blank_loc]
+
+    @property
+    def valid_move_directions(self):
+        # Returns a list of valid directional moves
+
+        move_directions = []
+        blank_loc = self.get_tile_loc(self.board.size)
+
+        move_directions.append(0) if blank_loc[0] > 0 else None
+        move_directions.append(1) if blank_loc[1] < 3 else None
+        move_directions.append(2) if blank_loc[0] < 3 else None
+        move_directions.append(3) if blank_loc[1] > 0 else None
+
+        return move_directions
 
     @property
     def valid_moves(self):
