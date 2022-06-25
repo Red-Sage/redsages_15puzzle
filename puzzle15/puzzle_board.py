@@ -151,6 +151,9 @@ class PuzzleBoard:
 
             self._execute_move(blank_loc, tile_loc)
 
+        else:
+            self._move_score -= 2  # Trying to move off the board penelty 2
+
     @property
     def valid_move_directions(self):
         # Returns a list of valid directional moves

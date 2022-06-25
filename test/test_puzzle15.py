@@ -205,3 +205,43 @@ def test_complete_board_score(completed_array):
     puzzle = PuzzleBoard(completed_array)
 
     assert puzzle.score == 160
+
+
+def test_move_off_board_up(test_array_2):
+    # Test that moving off the board by going up costs two points
+
+    puzzle = PuzzleBoard(test_array_2)
+
+    puzzle.move_direction(0)
+
+    assert puzzle.score == -2
+
+
+def test_move_off_board_left(test_array_2):
+    # Test that moving off the board by going left costs two points
+
+    puzzle = PuzzleBoard(test_array_2)
+
+    puzzle.move_direction(3)
+
+    assert puzzle.score == -2
+
+
+def test_move_off_board_right(completed_array):
+    # Test that moving off the board by going right costs two points
+
+    puzzle = PuzzleBoard(completed_array)
+
+    puzzle.move_direction(1)
+
+    assert puzzle.score == 160 - 2  # the board starts complete
+
+
+def test_move_off_board_down(completed_array):
+    # Test that moving off the board by going down costs two points
+
+    puzzle = PuzzleBoard(completed_array)
+
+    puzzle.move_direction(2)
+
+    assert puzzle.score == 160 - 2  # the board starts complete
