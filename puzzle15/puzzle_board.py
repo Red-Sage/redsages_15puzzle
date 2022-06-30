@@ -79,7 +79,7 @@ class PuzzleBoard:
         # that it does not check the board validity so it is possible to prank
         # your friends with imposible to solve puzzels.
 
-        self._board = board
+        self._board = np.copy(board)
         self._move_score = 0
 
     @property
