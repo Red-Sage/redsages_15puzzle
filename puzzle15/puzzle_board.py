@@ -13,11 +13,17 @@ class PuzzleBoard:
         # This static method creates a game board in a random configuration
         num_tries = 0
         is_valid_board = False
-        while not is_valid_board and num_tries < 10:
+        while not is_valid_board:
             board = np.random.permutation(range(1, rows*cols+1))
             board = np.reshape(board, (rows, cols))
 
             is_valid_board = PuzzleBoard._is_valid_board(board)
+
+            # This should never be the case but it gards agains an infinite
+            # loop. The error is raised because no valid board was found.
+            if num_tries > 100:
+                raise ValueError('Could not generate a vaid board')
+            
             num_tries += 1
 
         return board
@@ -72,6 +78,17 @@ class PuzzleBoard:
         board = np.array(range(1, size[0]*size[1]+1))
         board = np.reshape(board, size)
         return cls(board)
+
+    @classmethod
+    def get_this_board(cls, board):
+        # Takes a numpy array as imput and ensures that it is a valid state.
+        # Returns an instance of PuzzleBoard if the array is valid and errors
+        # otherwise.
+
+        if PuzzleBoard._is_valid_board(board):
+            return cls(board)
+        else:
+            raise ValueError('The board you passed is not reachable.')
 
     def __init__(self, board):
         # The constructor methods above should be used to create new boards
