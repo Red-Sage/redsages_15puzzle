@@ -67,6 +67,13 @@ class PuzzleBoard:
 
         return True
 
+    @staticmethod
+    def get_tile_from_board(board, tile):
+        # Returns the coordinates of the specified tile
+
+        loc = np.where(board == tile)
+        return (loc[0][0], loc[1][0])
+
     @classmethod
     def get_random_board(cls, size=(4, 4)):
         # Generates a valid randome permutation of the board
@@ -213,8 +220,8 @@ class PuzzleBoard:
     def get_tile_loc(self, tile):
         # Returns the coordinates of the specified tile
 
-        loc = np.where(self._board == tile)
-        return (loc[0][0], loc[1][0])
+        loc = self.get_tile_from_board(self.board, tile)
+        return loc
 
     @property
     def is_complete(self):
