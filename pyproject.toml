@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "RedSages_15Puzzle"
-version = @<tag>
+version = "0.0.0"
 authors = [
-  { name="Red Sage", email="Red Sage@outlook.com" },
+  { name="Red Sage", email="Red.Sage@outlook.com" },
 ]
 description = "An implementation of the 15 puzzle"
 readme = "README.md"
