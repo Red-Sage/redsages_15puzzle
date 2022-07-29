@@ -1,0 +1,19 @@
+[project]
+name = "RedSages_15Puzzle"
+version = "0.0.1"
+authors = [
+  { name="Red Sage", email="Red Sage@outlook.com" },
+]
+description = "An implementation of the 15 puzzle"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Windows",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Red-Sage/redsages_15puzzle"
+"Bug Tracker" = "https://github.com/Red-Sage/redsages_15puzzle/issues"
