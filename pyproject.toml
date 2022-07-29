@@ -1,6 +1,10 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "RedSages_15Puzzle"
-version = "0.0.1"
+version = @<tag>
 authors = [
   { name="Red Sage", email="Red Sage@outlook.com" },
 ]
